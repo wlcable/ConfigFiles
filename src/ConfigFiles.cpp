@@ -35,7 +35,7 @@ bool ConfigFiles::begin(int chipSelect)
 
 //Read Int
 //-reads an int from the file using parseInt
-bool ConfigFiles::read(char filename[13], int *value)
+bool ConfigFiles::read(const char filename[13], int *value)
 {
     //open the file
     sprintf(path, "%s/%s", folder, filename);
@@ -55,7 +55,7 @@ bool ConfigFiles::read(char filename[13], int *value)
 
 //Read Float
 //-reads a float from the file using parseFloat
-bool ConfigFiles::read(char filename[13], float *value)
+bool ConfigFiles::read(const char filename[13], float *value)
 {
     //open the file
     sprintf(path, "%s/%s", folder, filename);
@@ -94,7 +94,7 @@ bool ConfigFiles::write(const char filename[13], int value)
 //Write Str
 //-writes an char to the file
 //-file is overwritten if it exists
-bool ConfigFiles::writestr(char filename[13], char *value)
+bool ConfigFiles::writestr(const char filename[13], char *value)
 {
     //open the file
     sprintf(path, "%s/%s", folder, filename);
@@ -123,7 +123,7 @@ bool ConfigFiles::writestr(char filename[13], char *value)
 //-reads a char from a file
 //-length is limited to maxValueLen
 //-make sure to pass a pointer to a char array that is big enough :-)
-bool ConfigFiles::readstr(char filename[13], char *value)
+bool ConfigFiles::readstr(const char filename[13], char *value)
 {
     //open the file
     sprintf(path, "%s/%s", folder, filename);
