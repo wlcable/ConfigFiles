@@ -16,8 +16,10 @@ public:
     ConfigFiles(); //constructor
 
     bool begin(int chipSelect = -1);   //init SD & checks to make sure the folder exists and creates it if needed
+    bool read(const char filename[13], bool *value);
     bool read(const char filename[13], int *value);
     bool read(const char filename[13], float *value);
+    bool write(const char filename[13], bool value);
     bool write(const char filename[13], int value);
     //Writing floats is more complicated and should probably be avoided
         //it could be done by converting the float to a str and then using writestr

@@ -1,7 +1,7 @@
 //Written by Bill Cable 09-Mar-2021
 //Library to handle loading and saving config values to individual files
 //-while a seperate file for each value wastes storage and is overkill,
-// it is simple and lightweight 
+// it is simple and lightweight
 
 #include "ConfigFiles.h"
 
@@ -29,6 +29,29 @@ bool ConfigFiles::begin(int chipSelect)
     {
         if (!SD.mkdir(folder))
             return false;
+    }
+    return true;
+}
+
+//Read Bool
+//-reads an bool from the file using parseInt
+bool ConfigFiles::read(const char filename[13], bool *value)
+{
+    //open the file
+    sprintf(path, "%s/%s", folder, filename);
+    if (!SD.exists(path))
+        return false;
+    cf = SD.open(path, FILE_READ);
+    if (cf)
+    {
+        if (cf.parseInt() != 0)
+            *value = true;
+        else
+            *value = false;
+    }
+    else
+    {
+        return false;
     }
     return true;
 }
@@ -70,6 +93,27 @@ bool ConfigFiles::read(const char filename[13], float *value)
     {
         return false;
     }
+    return true;
+}
+
+//Write Bool
+//-writes an bool to the file
+//-file is overwritten if it exists
+bool ConfigFiles::write(const char filename[13], bool value)
+{
+    //open the file
+    sprintf(path, "%s/%s", folder, filename);
+    cf = SD.open(path, (O_READ | O_WRITE | O_CREAT | O_TRUNC)); //open the file for writing discarding contents
+    if (cf)
+    {
+        if (value)
+            cf.print("1");
+        else
+            cf.print("0");
+        cf.close();
+    }
+    else
+        return false;
     return true;
 }
 
@@ -132,9 +176,9 @@ bool ConfigFiles::readstr(const char filename[13], char *value)
     cf = SD.open(path, FILE_READ);
     if (cf)
     {
-        if (cf.available()) 
+        if (cf.available())
         {
-            cf.read(value,maxValueLen);
+            cf.read(value, maxValueLen);
         }
         cf.close();
     }
