@@ -18,6 +18,7 @@ public:
     bool begin(int chipSelect = -1);   //init SD & checks to make sure the folder exists and creates it if needed
     bool read(const char filename[13], bool *value);
     bool read(const char filename[13], int *value);
+    bool read(const char filename[13], uint8_t *value);    
     bool read(const char filename[13], float *value);
     bool write(const char filename[13], bool value);
     bool write(const char filename[13], int value);

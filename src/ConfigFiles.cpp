@@ -76,6 +76,26 @@ bool ConfigFiles::read(const char filename[13], int *value)
     return true;
 }
 
+//Read Uint8
+//-reads an uint8_t from the file using parseInt
+bool ConfigFiles::read(const char filename[13], uint8_t *value)
+{
+    //open the file
+    sprintf(path, "%s/%s", folder, filename);
+    if (!SD.exists(path))
+        return false;
+    cf = SD.open(path, FILE_READ);
+    if (cf)
+    {
+        *value = cf.parseInt();
+    }
+    else
+    {
+        return false;
+    }
+    return true;
+}
+
 //Read Float
 //-reads a float from the file using parseFloat
 bool ConfigFiles::read(const char filename[13], float *value)
